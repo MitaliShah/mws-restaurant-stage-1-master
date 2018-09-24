@@ -4,12 +4,12 @@ let restaurants,
 var newMap
 var markers = []
 
-if  ('serviceWorker' in navigator){
+if ('serviceWorker' in navigator) {
   navigator.serviceWorker
-  .register('js/sw.js')
-  .catch(function(err){
-    console.log(err);
-  });
+    .register('js/sw.js')
+    .catch(function (err) {
+      console.log(err);
+    });
 
 }
 
@@ -82,10 +82,10 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
  */
 initMap = () => {
   self.newMap = L.map('map', {
-        center: [40.722216, -73.987501],
-        zoom: 12,
-        scrollWheelZoom: false
-      });
+    center: [40.722216, -73.987501],
+    zoom: 12,
+    scrollWheelZoom: false
+  });
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
     mapboxToken: 'pk.eyJ1IjoibXNoYWhtYXAiLCJhIjoiY2ptZjZ2a3EzNmp2azNxbGl1emJjb2xuOCJ9.Gd7VFCHhGxfEf7kH7N6mkg',
     maxZoom: 18,
@@ -202,13 +202,14 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     // Add marker to the map
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.newMap);
     marker.on("click", onClick);
+
     function onClick() {
       window.location.href = marker.options.url;
     }
     self.markers.push(marker);
   });
 
-} 
+}
 /* addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map
@@ -219,4 +220,3 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 } */
-
