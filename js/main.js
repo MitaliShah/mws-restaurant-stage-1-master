@@ -4,6 +4,15 @@ let restaurants,
 var newMap
 var markers = []
 
+if  ('serviceWorker' in navigator){
+  navigator.serviceWorker
+  .register('js/sw.js')
+  .catch(function(err){
+    console.log(err);
+  });
+
+}
+
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
@@ -78,7 +87,7 @@ initMap = () => {
         scrollWheelZoom: false
       });
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
-    mapboxToken: '<your MAPBOX API KEY HERE>',
+    mapboxToken: 'pk.eyJ1IjoibXNoYWhtYXAiLCJhIjoiY2ptZjZ2a3EzNmp2azNxbGl1emJjb2xuOCJ9.Gd7VFCHhGxfEf7kH7N6mkg',
     maxZoom: 18,
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
       '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -161,6 +170,7 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.alt = `This is an image of the restautant ${restaurant.name}`;
   li.append(image);
 
   const name = document.createElement('h1');
@@ -178,6 +188,7 @@ createRestaurantHTML = (restaurant) => {
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
+  more.tabIndex = '3';
   li.append(more)
 
   return li
